@@ -1,0 +1,76 @@
+{% extends 'MyInventoryApp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="col-md-10">
+        <div class="col-10">
+            <div class="card">
+                <div class="card-header">
+                    <b>Water Bottle Details:</b>
+                </div>
+                <div class="card-body">
+                    <form id="add_bottle_form" method="POST">
+                        <!-- SKU -->
+                         <div class="mb-3">
+                            <label for="sku" class="form-label">SKU</label>
+                            <input type="text" class="form-control" id="sku" name="sku" placeholder="e.g. 1A1">
+                         </div>
+                        <!-- Brand -->
+                         <div class="mb-3">
+                            <label for="brand" class="form-label">Brand</label>
+                            <input type="text" class="form-control" id="brand" name="brand">
+                         </div>
+                        <!-- Cost -->
+                         <div class="mb-3">
+                            <label for="cost" class="form-label">Cost</label>
+                            <input type="number" step="0.01" class="form-control" id="cost" name="cost">
+                         </div>
+                        <!-- Size -->
+                         <div class="mb-3">
+                            <label for="size" class="form-label">Size</label>
+                            <input type="text" class="form-control" id="size">
+                         </div>
+                        <!-- Mouth Size -->
+                         <div class="mb-3">
+                            <label for="mouth_size" class="form-label">Mouth Size</label>
+                            <input type="text" class="form-control" id="mouth_size">
+                         </div>
+                        <!-- Color -->
+                         <div class="mb-3">
+                            <label for="color" class="form-label">Color</label>
+                            <input type="text" class="form-control" id="color">
+                         </div>
+                        <!-- Supplied By -->
+                         <div class="mb-3">
+                            <label for="supplied_by" class="form-label">Supplied By</label>
+                            <select class="form-select" id="supplied_by">
+                                <option></option>
+                                <option>Meister, Inc.</option>
+                                <option>Sailfish, Inc.</option>
+                                <option>Bucky, Inc.</option>
+                                <option>Stanley</option>
+                                <option>Lock & Lock</option>
+                                <option>Habagat Hydration, Inc.</option>
+                            </select>
+                         </div>
+                        <!-- Current Quantity -->
+                         <div class="mb-3">
+                            <label for="current_quantity" class="form-label">Current Quantity</label>
+                            <input type="number" class="form-control" id="current_quantity" min="0">
+                         </div>
+                        
+                        <button type="submit" class="btn btn-secondary">Add Bottle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+{% block sidemenu %}
+
+<a class="nav-link" href="{% url 'home' %}">• Back to main</a>
+{% endblock sidemenu %}
