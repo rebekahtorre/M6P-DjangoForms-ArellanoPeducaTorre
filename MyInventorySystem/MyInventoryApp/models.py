@@ -27,6 +27,16 @@ class WaterBottle(models.Model):
     current_quantity = models.PositiveIntegerField()
     objects = models.Manager()
 
+class Account(models.Model):
+    username = models.CharField(max_length=100, unique=True)
+    password = models.CharField(max_length=100)
+
+    def getUsername(self):
+        return self.username
+    
+    def getPassword(self):
+        return self.password
+
     def __str__(self) -> str:
         return f"{self.sku}: {self.brand}, {self.mouth_size}, {self.size}, {self.color}, supplied by {self.supplied_by}, {self.cost}: {self.current_quantity}"
     
