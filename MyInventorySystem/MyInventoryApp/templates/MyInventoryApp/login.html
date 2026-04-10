@@ -13,10 +13,16 @@
 
                 <div class="card-body">
 
-                    {% if message %}
+                    {% if error %}
                         <div class="alert alert-danger">
-                            {{ message }}
+                            {{ error }}
                         </div>
+                    {% endif %}
+                    
+                    {% if message %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
                     {% endif %}
 
                     <form method="POST">
@@ -47,6 +53,7 @@
                         <a href="{% url 'signup' %}" class="btn btn-secondary">
                             Sign Up
                         </a>
+                        <a href="{% url 'home' %}"
 
                     </form>
 
