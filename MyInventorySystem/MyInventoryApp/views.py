@@ -33,5 +33,33 @@ def login(request):
     return render(request, "MyInventoryApp/login.html")
 
 def signup(request):
-    return render(request, "MyInventoryApp/signup.html")
+    message = ""
+    if request.method == "POST":
+        username=request.POST.get("username")
+        password=request.POST.get("password")
+
+        existing_accounts = Account.objects.filter(username=username)
+
+        if len(existing_accounts > 0):
+            message = "Account already exists"
+
+            return render(request, "MyInventoryApp/signup.html",{
+                "message": message
+        })
+
+        else:
+            new_account = Account()
+            new_account.username = username
+            new_account.password = password
+            new_account.save()
+            message = "Account created successfully" \
+            
+            return render(request, 'MyInventoryApp/login.html',{
+                "message":message
+            })
+        
+    return render(request, 'MyInventoryApp/signup.html')
+
+
+    
     
