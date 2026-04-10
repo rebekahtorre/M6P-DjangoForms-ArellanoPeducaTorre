@@ -23,9 +23,7 @@ def login(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
 
-        account = Account.objects.filter(username=username, password=password)
-    
-        if len(account) > 0:
+        if Account.objects.filter(username=username, password=password):
             return render(request, "MyInventoryApp/view_supplier.html")
         else:
             return render(request, "MyInventoryApp/login.html", {"error": "Invalid login"})
@@ -38,9 +36,7 @@ def signup(request):
         username=request.POST.get("username")
         password=request.POST.get("password")
 
-        existing_accounts = Account.objects.filter(username=username)
-
-        if len(existing_accounts > 0):
+        if Account.objects.filter(username=username):
             message = "Account already exists"
 
             return render(request, "MyInventoryApp/signup.html",{
@@ -48,11 +44,8 @@ def signup(request):
         })
 
         else:
-            new_account = Account()
-            new_account.username = username
-            new_account.password = password
-            new_account.save()
-            message = "Account created successfully" \
+            Account.objects.create(username=username, password=password)
+            message = "Account created successfully"
             
             return render(request, 'MyInventoryApp/login.html',{
                 "message":message
