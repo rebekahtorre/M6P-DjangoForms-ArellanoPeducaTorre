@@ -26,7 +26,7 @@ def login(request):
         account = Account.objects.filter(username=username, password=password)
     
         if len(account) > 0:
-            return render(request, "view_supplier.html")
+            return render(request, "MyInventoryApp/view_supplier.html")
         else:
             return render(request, "MyInventoryApp/login.html", {"error": "Invalid login"})
     
