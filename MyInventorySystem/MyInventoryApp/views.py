@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Supplier, WaterBottle
+from .models import Supplier, WaterBottle, Account
 
 # Create your views here.
 
@@ -17,3 +17,18 @@ def view_supplier(request):
 def view_bottles(request):
     bottles = WaterBottle.objects.all()
     return render(request, 'MyInventoryApp/view_bottles.html', {"bottles": bottles})
+
+def login(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        account = Account.objects.filter(username=username, password=password)
+    
+        if len(account) > 0:
+            return render(request, "view_supplier.html")
+        else:
+            return render(request, "MyInventoryApp/login.html", {"error": "Invalid login"})
+    
+    return render(request, "MyInventoryApp/login.html")
+    
