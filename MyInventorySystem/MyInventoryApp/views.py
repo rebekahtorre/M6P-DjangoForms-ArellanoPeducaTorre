@@ -31,4 +31,7 @@ def login(request):
             return render(request, "MyInventoryApp/login.html", {"error": "Invalid login"})
     
     return render(request, "MyInventoryApp/login.html")
+
+def signup(request):
+    return render(request, "MyInventoryApp/signup.html")
     
