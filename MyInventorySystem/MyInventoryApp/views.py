@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Supplier, WaterBottle, Account
 
 current_pk = None
+msg = None
 
 def home(request):
     return render(request, 'MyInventoryApp/base.html', {"pk": current_pk})
@@ -18,6 +19,7 @@ def view_bottles(request):
     return render(request, 'MyInventoryApp/view_bottles.html', {"bottles": bottles, "pk": current_pk})
 
 def login(request):
+    global msg
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -31,7 +33,7 @@ def login(request):
         else:
             return render(request, "MyInventoryApp/login.html", {"error": "Invalid login"})
 
-    return render(request, "MyInventoryApp/login.html")
+    return render(request, "MyInventoryApp/login.html", {"message": msg})
 
 def signup(request):
     if request.method == "POST":
@@ -42,7 +44,9 @@ def signup(request):
             return render(request, "MyInventoryApp/signup.html", {"message": "Account already exists"})
         else:
             Account.objects.create(username=username, password=password)
-            return render(request, 'MyInventoryApp/login.html', {"message": "Account created successfully"})
+            global msg
+            msg = "Account created successfully"
+            return redirect('login')
 
     return render(request, 'MyInventoryApp/signup.html')
 
