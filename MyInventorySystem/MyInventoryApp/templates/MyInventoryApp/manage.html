@@ -1,0 +1,21 @@
+{% extends 'MyInventoryApp/base.html' %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+        <b>Manage Account</b>
+    </div>
+
+    <div class="card-body">
+        <p><strong>Username:</strong> {{ acc.username }}</p>
+
+        <div class="d-flex gap-2">
+            <a class="btn btn-primary" href="{% url 'change_password' pk=acc.pk %}">Change Password</a>
+            <a class="btn btn-danger" href="{% url 'delete_account' pk=acc.pk %}">Delete Account</a>
+            <a class="btn btn-secondary" href="{% url 'view_supplier' pk=acc.pk %}">Back</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

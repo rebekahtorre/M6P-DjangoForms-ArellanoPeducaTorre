@@ -1,6 +1,7 @@
 {% extends 'MyInventoryApp/base.html' %}
 
 {% block content %}
+
 <h2>Suppliers</h2>
 
 <table class="table table-striped">
@@ -16,10 +17,12 @@
     <tbody>
         {% for supplier in suppliers %}
         <tr>
-            <td>{{supplier.name}}</td>
-            <td>{{supplier.city}}</td>
-            <td>{{supplier.country}}</td>
-            <td>{{supplier.created_at}}</td>
+            <td>
+                <a href="{% url 'view_bottles' %}">{{ supplier.name }}</a>
+            </td>
+            <td>{{ supplier.city }}</td>
+            <td>{{ supplier.country }}</td>
+            <td>{{ supplier.created_at }}</td>
         </tr>
         {% empty %}
         <tr>
@@ -28,5 +31,17 @@
         {% endfor %}
     </tbody>
 </table>
+
+<div class="d-flex justify-content-center mt-3 mb-4">
+    <div class="d-flex gap-2">
+        <a class="btn btn-primary" href="{% url 'add_bottle' %}">Add Water Bottles</a>
+
+        {% if pk %}
+            <a class="btn btn-secondary" href="{% url 'manage_account' pk=pk %}">Manage Account</a>
+        {% endif %}
+
+        <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
 
 {% endblock %}
