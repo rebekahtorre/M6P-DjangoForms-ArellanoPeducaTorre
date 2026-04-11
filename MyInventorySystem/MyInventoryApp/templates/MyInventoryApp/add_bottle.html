@@ -7,11 +7,12 @@
     <div class="col-md-10">
         <div class="col-10">
             <div class="card">
-                <div class="card-header">
+                <div class="carad-header">
                     <b>Water Bottle Details:</b>
                 </div>
                 <div class="card-body">
                     <form id="add_bottle_form" method="POST">
+                        {% csrf_token %}
                         <!-- SKU -->
                          <div class="mb-3">
                             <label for="sku" class="form-label">SKU</label>
