@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Supplier, WaterBottle, Account
 
 current_pk = None
+msg = None
 
 def home(request):
     return render(request, 'MyInventoryApp/base.html', {"pk": current_pk})
@@ -17,21 +18,31 @@ def view_bottles(request):
     bottles = WaterBottle.objects.all()
     return render(request, 'MyInventoryApp/view_bottles.html', {"bottles": bottles, "pk": current_pk})
 
+def view_bottle_details(request, pk):
+    bottle = get_object_or_404(WaterBottle, pk=pk)
+    return render(request, 'MyInventoryApp/view_bottle_details.html', {"bottle": bottle})
+
+def delete_bottle(request, pk):
+    bottle = get_object_or_404(WaterBottle, pk=pk)
+    bottle.delete()
+    return redirect('view_bottles')
+
 def login(request):
+    global msg
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
 
-        acc_qs = Account.objects.filter(username=username, password=password)
-        if acc_qs:
-            acc = acc_qs[0]
+        account = Account.objects.filter(username=username, password=password)
+        if account:
+            acc = account[0]
             global current_pk
             current_pk = acc.pk
             return redirect('view_supplier')
         else:
             return render(request, "MyInventoryApp/login.html", {"error": "Invalid login"})
 
-    return render(request, "MyInventoryApp/login.html")
+    return render(request, "MyInventoryApp/login.html", {"message": msg})
 
 def signup(request):
     if request.method == "POST":
@@ -42,7 +53,9 @@ def signup(request):
             return render(request, "MyInventoryApp/signup.html", {"message": "Account already exists"})
         else:
             Account.objects.create(username=username, password=password)
-            return render(request, 'MyInventoryApp/login.html', {"message": "Account created successfully"})
+            global msg
+            msg = "Account created successfully"
+            return redirect('login')
 
     return render(request, 'MyInventoryApp/signup.html')
 
