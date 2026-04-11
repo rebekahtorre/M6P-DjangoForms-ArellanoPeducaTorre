@@ -35,4 +35,7 @@ urlpatterns = [
 
     path('view_bottle_details/<int:pk>/', views.view_bottle_details, name='view_bottle_details'),
     path('delete_bottle/<int:pk>', views.delete_bottle, name='delete_bottle'),
+
+    path('view_bottle_details/<int:pk>/', views.view_bottle_details, name='view_bottle_details'),
+    path('delete_bottle/<int:pk>/', views.delete_bottle, name='delete_bottle'),
 ]

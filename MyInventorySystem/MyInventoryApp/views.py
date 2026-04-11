@@ -98,3 +98,12 @@ def delete_bottle(request,pk):
     bottle = get_object_or_404(WaterBottle, pk=pk)
     bottle.delete()
     return redirect('view_bottles')
+
+def view_bottle_details(request, pk):
+    bottle = get_object_or_404(WaterBottle, pk=pk)
+    return render(request, 'MyInventoryApp/view_bottle_details.html', {"bottle": bottle})
+
+def delete_bottle(request, pk):
+    bottle = get_object_or_404(WaterBottle, pk=pk)
+    bottle.delete()
+    return redirect('view_bottles')
