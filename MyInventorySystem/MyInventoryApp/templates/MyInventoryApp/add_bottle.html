@@ -10,8 +10,16 @@
                 <div class="card-header">
                     <b>Water Bottle Details:</b>
                 </div>
+                
                 <div class="card-body">
+                    {% if message %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endif %}
                     <form id="add_bottle_form" method="POST">
+                        {% csrf_token %}
+                        
                         <!-- SKU -->
                          <div class="mb-3">
                             <label for="sku" class="form-label">SKU</label>
@@ -61,7 +69,8 @@
                             <input type="number" class="form-control" id="current_quantity" min="0">
                          </div>
                         
-                        <button type="submit" class="btn btn-secondary">Add Bottle</button>
+                        <button type="submit" class="btn btn-primary">Add Bottle</button>
+                        <a class="btn btn-secondary" href = "{% url 'view_supplier' %}">Cancel</a>
                     </form>
                 </div>
             </div>

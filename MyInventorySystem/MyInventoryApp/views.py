@@ -8,6 +8,19 @@ def home(request):
     return render(request, 'MyInventoryApp/base.html', {"pk": current_pk})
 
 def add_bottle(request):
+    if request.method == "POST":
+        sku = request.POST.get("sku")
+        brand = request.POST.get("brand")
+        cost = request.POST.get("cost")
+        size = request.POST.get("size")
+        mouth_size = request.POST.get("mouth_size")
+        color = request.POST.get("color")
+        supplied_by = request.POST.get("supplied_by")
+        current_quantity = request.POST.get("current_quantity")
+        if WaterBottle.objects.filter(sku=sku):
+            return render(request, 'MyInventoryApp/add_bottle.html', {"message": "SKU already exists"})
+        else:
+            WaterBottle.objects.create(sku=sku, brand=brand, cost=cost, size=size, mouth_size=mouth_size, color=color, supplied_by=supplied_by, current_quantity=current_quantity)
     return render(request, 'MyInventoryApp/add_bottle.html', {"pk": current_pk})
 
 def view_supplier(request):
@@ -20,10 +33,10 @@ def view_bottles(request):
 
 def view_bottle_details(request, pk):
     bottle = get_object_or_404(WaterBottle, pk=pk)
-    return render(request, 'MyInventoryApp/view_bottle_details.html', {"bottle": bottle})
+    return render(request, 'MyInventoryApp/view_bottle_details.html', {"bottle": bottle, "bottle.pk": bottle.pk})
 
 def delete_bottle(request, pk):
-    bottle = get_object_or_404(WaterBottle, pk=pk)
+    bottle = get_object_or_404(WaterBottle, pk=bottle.pk)
     bottle.delete()
     return redirect('view_bottles')
 
