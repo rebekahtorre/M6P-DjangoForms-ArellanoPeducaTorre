@@ -12,7 +12,7 @@
 <p><strong>Supplier:</strong> {{ bottle.supplied_by.name }}</p>
 <p><strong>Quantity:</strong> {{ bottle.current_quantity }}</p>
 
-<form action="{% url 'delete_bottle' bottle.pk %}" method="POST">
+<form method="POST" action="{% url 'delete_bottle' bottle.pk %}">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Delete</button>
 </form>

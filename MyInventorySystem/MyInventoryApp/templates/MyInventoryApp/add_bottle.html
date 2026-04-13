@@ -38,35 +38,31 @@
                         <!-- Size -->
                          <div class="mb-3">
                             <label for="size" class="form-label">Size</label>
-                            <input type="text" class="form-control" id="size">
+                            <input type="text" class="form-control" id="size" name="size">
                          </div>
                         <!-- Mouth Size -->
                          <div class="mb-3">
                             <label for="mouth_size" class="form-label">Mouth Size</label>
-                            <input type="text" class="form-control" id="mouth_size">
+                            <input type="text" class="form-control" id="mouth_size" name="mouth_size">
                          </div>
                         <!-- Color -->
                          <div class="mb-3">
                             <label for="color" class="form-label">Color</label>
-                            <input type="text" class="form-control" id="color">
+                            <input type="text" class="form-control" id="color" name="color">
                          </div>
                         <!-- Supplied By -->
                          <div class="mb-3">
                             <label for="supplied_by" class="form-label">Supplied By</label>
-                            <select class="form-select" id="supplied_by">
-                                <option></option>
-                                <option>Meister, Inc.</option>
-                                <option>Sailfish, Inc.</option>
-                                <option>Bucky, Inc.</option>
-                                <option>Stanley</option>
-                                <option>Lock & Lock</option>
-                                <option>Habagat Hydration, Inc.</option>
+                            <select class="form-select" id="supplied_by" name="supplied_by">
+                                {% for supplier in suppliers %}
+                                    <option value="{{ supplier.pk }}">{{ supplier.name }}</option>
+                                {% endfor %}
                             </select>
                          </div>
                         <!-- Current Quantity -->
                          <div class="mb-3">
                             <label for="current_quantity" class="form-label">Current Quantity</label>
-                            <input type="number" class="form-control" id="current_quantity" min="0">
+                            <input type="number" class="form-control" id="current_quantity" name="current_quantity" min="0">
                          </div>
                         
                         <button type="submit" class="btn btn-primary">Add Bottle</button>
@@ -79,7 +75,3 @@
 </div>
 
 {% endblock content %}
-{% block sidemenu %}
-
-<a class="nav-link" href="{% url 'home' %}">• Back to main</a>
-{% endblock sidemenu %}

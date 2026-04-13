@@ -8,6 +8,8 @@ def home(request):
     return render(request, 'MyInventoryApp/base.html', {"pk": current_pk})
 
 def add_bottle(request):
+    suppliers = Supplier.objects.all()
+
     if request.method == "POST":
         sku = request.POST.get("sku")
         brand = request.POST.get("brand")
@@ -18,12 +20,16 @@ def add_bottle(request):
         supplied_by = request.POST.get("supplied_by")
         current_quantity = request.POST.get("current_quantity")
         if WaterBottle.objects.filter(sku=sku):
-            return render(request, 'MyInventoryApp/add_bottle.html', {"message": "SKU already exists"})
-        else:
-            WaterBottle.objects.create(sku=sku, brand=brand, cost=cost, size=size, mouth_size=mouth_size, color=color, supplied_by=supplied_by, current_quantity=current_quantity)
-    return render(request, 'MyInventoryApp/add_bottle.html', {"pk": current_pk})
+            return render(request, 'MyInventoryApp/add_bottle.html', {"message": "SKU already exists", "suppliers": suppliers})
+        
+        supplier = Supplier.objects.get(pk=supplied_by)
+        WaterBottle.objects.create(sku=sku, brand=brand, cost=cost, size=size, mouth_size=mouth_size, color=color, supplied_by=supplier, current_quantity=current_quantity)
+    
+    return render(request, 'MyInventoryApp/add_bottle.html', {"suppliers": suppliers})
 
 def view_supplier(request):
+    global msg
+    msg = None
     suppliers = Supplier.objects.all()
     return render(request, 'MyInventoryApp/view_supplier.html', {"suppliers": suppliers, "pk": current_pk})
 
@@ -36,8 +42,9 @@ def view_bottle_details(request, pk):
     return render(request, 'MyInventoryApp/view_bottle_details.html', {"bottle": bottle, "bottle.pk": bottle.pk})
 
 def delete_bottle(request, pk):
-    bottle = get_object_or_404(WaterBottle, pk=bottle.pk)
-    bottle.delete()
+    if request.method == "POST":
+        bottle = get_object_or_404(WaterBottle, pk=pk)
+        bottle.delete()
     return redirect('view_bottles')
 
 def login(request):
@@ -54,8 +61,9 @@ def login(request):
             return redirect('view_supplier')
         else:
             return render(request, "MyInventoryApp/login.html", {"error": "Invalid login"})
-
-    return render(request, "MyInventoryApp/login.html", {"message": msg})
+    if msg:
+        return render(request, "MyInventoryApp/login.html", {"message": msg})
+    return render(request, "MyInventoryApp/login.html")
 
 def signup(request):
     if request.method == "POST":
