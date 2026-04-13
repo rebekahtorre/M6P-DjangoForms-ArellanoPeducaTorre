@@ -32,10 +32,6 @@ urlpatterns = [
     path('manage_account/<int:pk>/', views.manage_account, name='manage_account'),
     path('change_password/<int:pk>/', views.change_password, name='change_password'),
     path('delete_account/<int:pk>/', views.delete_account, name='delete_account'),
-<<<<<<< HEAD
-    path('view_bottle_details/<int:pk>/', views.view_bottle_details, name='view_bottle_details')
-=======
     path('view_bottle_details/<int:pk>/', views.view_bottle_details, name='view_bottle_details'),
     path('delete_bottle/<int:pk>/', views.delete_bottle, name='delete_bottle'),
->>>>>>> 17a9645efca2c4f3132ced980d3ce2257809ae55
 ]
