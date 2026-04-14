@@ -71,9 +71,7 @@ def signup(request):
         username=request.POST.get("username")
         password=request.POST.get("password")
 
-        existing_accounts = Account.objects.filter(username=username)
-
-        if len(existing_accounts > 0):
+        if Account.objects.filter(username=username):
             message = "Account already exists"
 
             return render(request, "MyInventoryApp/signup.html",{
